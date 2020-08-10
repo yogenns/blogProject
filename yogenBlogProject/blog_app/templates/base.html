@@ -1,11 +1,49 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
     <head>
         <title>Yogen Blog Site</title>
+        <!-- BootStrap CDN -->
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- Medium Editor -->
+        <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+        <!-- Customer CSS -->
+        <link rel="stylesheet" href="{% static 'css/blog_app.css' %}"/>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Russo+One&display=swap" rel="stylesheet">
+
     </head>
     <body>
-        <h1>Base Info</h1>
+        <nav class="navbar navbar-expand-lg techfont">
+            <div class="container">
+                <a class="nav-item navbar-brand" href="{% url 'post_list' %}">Yogen Blog</a>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="{% url 'about' %}">About</a>
+                    <a class="nav-item nav-link" href="https://github.com/yogenns/blogProject">GitHub</a>
+                </div>
+                <div class="navbar-nav nabvar-right">
+                    {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" href="{% url 'post_new' %}">New Post</a>
+                        <a class="nav-item nav-link" href="{% url 'draft_list' %}">Drafts</a>
+                        <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
+                        <a>Welcome: {{user.username}} </a>
+                    {% else %}
+                        <a class="nav-item nav-link" href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span>LogIn</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <div class="container">
         {% block body_block %}
         {% endblock %}
+        </div>
     </body>
 </html>
